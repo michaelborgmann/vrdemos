@@ -12,9 +12,11 @@
 		4CD885241E7FC2B600A3E4A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD885221E7FC2B600A3E4A3 /* Main.storyboard */; };
 		4CD885261E7FC2B600A3E4A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */; };
 		4CD885291E7FC2B600A3E4A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD885271E7FC2B600A3E4A3 /* LaunchScreen.storyboard */; };
+		90F6F69D961BA9F3E9657ABB /* Pods_VR_Demos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53AE1334D152051F40BFFD9F /* Pods_VR_Demos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04D4750D46A9E5585F5B757E /* Pods-VR Demos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VR Demos.release.xcconfig"; path = "Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos.release.xcconfig"; sourceTree = "<group>"; };
 		4CD8851B1E7FC2B600A3E4A3 /* VR Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VR Demos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD885201E7FC2B600A3E4A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,9 @@
 		4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CD885281E7FC2B600A3E4A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4CD8852A1E7FC2B600A3E4A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VR Demos-Bridging-Header.h"; sourceTree = "<group>"; };
+		53AE1334D152051F40BFFD9F /* Pods_VR_Demos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VR_Demos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66902F479B2C637213EAA3F1 /* Pods-VR Demos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VR Demos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F6F69D961BA9F3E9657ABB /* Pods_VR_Demos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,8 @@
 			children = (
 				4CD8851D1E7FC2B600A3E4A3 /* VR Demos */,
 				4CD8851C1E7FC2B600A3E4A3 /* Products */,
+				E7E43060E88DAD782F03E96E /* Pods */,
+				6F830F05E1BD11D785ABDC1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +62,7 @@
 		4CD8851D1E7FC2B600A3E4A3 /* VR Demos */ = {
 			isa = PBXGroup;
 			children = (
+				4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */,
 				4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */,
 				4CD885201E7FC2B600A3E4A3 /* ViewController.swift */,
 				4CD885221E7FC2B600A3E4A3 /* Main.storyboard */,
@@ -64,6 +73,23 @@
 			path = "VR Demos";
 			sourceTree = "<group>";
 		};
+		6F830F05E1BD11D785ABDC1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53AE1334D152051F40BFFD9F /* Pods_VR_Demos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7E43060E88DAD782F03E96E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				66902F479B2C637213EAA3F1 /* Pods-VR Demos.debug.xcconfig */,
+				04D4750D46A9E5585F5B757E /* Pods-VR Demos.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +97,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CD8852D1E7FC2B600A3E4A3 /* Build configuration list for PBXNativeTarget "VR Demos" */;
 			buildPhases = (
+				7FCD3FDD5FD9ED14785ACFA5 /* [CP] Check Pods Manifest.lock */,
 				4CD885171E7FC2B600A3E4A3 /* Sources */,
 				4CD885181E7FC2B600A3E4A3 /* Frameworks */,
 				4CD885191E7FC2B600A3E4A3 /* Resources */,
+				7901526E7632CFD1A88F52D9 /* [CP] Embed Pods Frameworks */,
+				CC4C5F12D67F089EBF374C06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +160,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7901526E7632CFD1A88F52D9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FCD3FDD5FD9ED14785ACFA5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CC4C5F12D67F089EBF374C06 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4CD885171E7FC2B600A3E4A3 /* Sources */ = {
@@ -259,26 +336,32 @@
 		};
 		4CD8852E1E7FC2B600A3E4A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66902F479B2C637213EAA3F1 /* Pods-VR Demos.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FNBTP68MJQ;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "VR Demos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelborgmann.VR-Demos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VR Demos/VR Demos-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		4CD8852F1E7FC2B600A3E4A3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04D4750D46A9E5585F5B757E /* Pods-VR Demos.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FNBTP68MJQ;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "VR Demos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelborgmann.VR-Demos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VR Demos/VR Demos-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +385,7 @@
 				4CD8852F1E7FC2B600A3E4A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
