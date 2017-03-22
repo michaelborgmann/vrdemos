@@ -20,13 +20,23 @@
                     <view key="view" contentMode="scaleToFill" id="HFM-6X-WhW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iw8-1n-v6I" customClass="GVRVideoView">
+                                <rect key="frame" x="16" y="143" width="343" height="217"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.76672995269954614" blue="0.6371991574859428" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Video" image="video" id="JmW-Oz-Lbn"/>
+                    <connections>
+                        <outlet property="videoView" destination="Iw8-1n-v6I" id="Uro-M1-HU7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7l4-xa-x01" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-423" y="1737"/>
+            <point key="canvasLocation" x="-423.19999999999999" y="1736.5817091454273"/>
         </scene>
         <!--Cardboard-->
         <scene sceneID="fdl-gi-flG">
@@ -58,19 +68,9 @@
                     <view key="view" contentMode="scaleToFill" id="ZxW-VU-2rR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q86-5y-q5b" customClass="GVRPanoramaView">
-                                <rect key="frame" x="16" y="135" width="343" height="230"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="0.015059569870594314" green="1" blue="0.63516114913068455" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Panorama" image="panorama" id="pQf-Tn-dhP"/>
-                    <connections>
-                        <outlet property="panoramaView" destination="Q86-5y-q5b" id="TNm-FN-EN8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GnR-ze-lUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

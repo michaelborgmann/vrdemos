@@ -1,31 +1,31 @@
 //
-//  PanoramaViewController.swift
+//  VideoViewController.swift
 //  VR Demos
 //
-//  Created by Michael Borgmann on 21/03/2017.
+//  Created by Michael Borgmann on 22/03/2017.
 //  Copyright © 2017 Michael Borgmann. All rights reserved.
 //
 
 import UIKit
 
-class PanoramaViewController: UIViewController {
+class VideoViewController: UIViewController {
 
-    let panoramaView = GVRPanoramaView()
+    @IBOutlet weak var videoView: GVRVideoView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let margin: CGFloat = 16.0
-        let width = view.bounds.width - (2 * margin)
-        panoramaView.frame = CGRect(x: margin, y: margin * 4, width: width, height: width / 2)
-        view.addSubview(panoramaView)
+        let url = URL(string: "https://raw.githubusercontent.com/googlevr/gvr-ios-sdk" +
+                              "/master/Samples/VideoWidgetDemo/resources/congo.mp4")
         
-        panoramaView.load(UIImage(named: "andes.jpg"), of: GVRPanoramaImageType.stereoOverUnder)
-        panoramaView.enableFullscreenButton = true
-        panoramaView.enableCardboardButton = true
+        // For local resources use this URL instead
+        //let path = Bundle.main.path(forResource: "congo", ofType: "mp4")
+        //let url = URL(fileURLWithPath: path!)
         
-        //view.addSubview(panoramaView)
+        videoView.load(from: url, of: GVRVideoType.stereoOverUnder)
+        videoView.enableFullscreenButton = true
+        videoView.enableCardboardButton = true
     }
 
     override func didReceiveMemoryWarning() {
