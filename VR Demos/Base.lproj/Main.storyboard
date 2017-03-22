@@ -12,7 +12,7 @@
         <!--Video-->
         <scene sceneID="wfk-M8-UhA">
             <objects>
-                <viewController id="R0p-vs-Rs6" sceneMemberID="viewController">
+                <viewController id="R0p-vs-Rs6" customClass="VideoViewController" customModule="VR_Demos" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F7K-5J-YnT"/>
                         <viewControllerLayoutGuide type="bottom" id="dt4-sP-CNx"/>
@@ -50,7 +50,7 @@
         <!--Panorama-->
         <scene sceneID="teJ-cP-I4j">
             <objects>
-                <viewController id="dHS-0P-TpJ" sceneMemberID="viewController">
+                <viewController id="dHS-0P-TpJ" customClass="PanoramaViewController" customModule="VR_Demos" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nOR-vk-jgf"/>
                         <viewControllerLayoutGuide type="bottom" id="zmh-LY-ezw"/>
@@ -58,13 +58,23 @@
                     <view key="view" contentMode="scaleToFill" id="ZxW-VU-2rR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q86-5y-q5b" customClass="GVRPanoramaView">
+                                <rect key="frame" x="16" y="135" width="343" height="230"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.015059569870594314" green="1" blue="0.63516114913068455" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Panorama" image="panorama" id="pQf-Tn-dhP"/>
+                    <connections>
+                        <outlet property="panoramaView" destination="Q86-5y-q5b" id="TNm-FN-EN8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GnR-ze-lUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1087" y="1737"/>
+            <point key="canvasLocation" x="-1087.2" y="1736.5817091454273"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="T43-HA-YgA">
