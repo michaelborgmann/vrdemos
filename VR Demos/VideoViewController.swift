@@ -11,6 +11,7 @@ import UIKit
 class VideoViewController: UIViewController {
 
     @IBOutlet weak var videoView: GVRVideoView!
+    @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class VideoViewController: UIViewController {
         videoView.load(from: url, of: GVRVideoType.stereoOverUnder)
         videoView.enableFullscreenButton = true
         videoView.enableCardboardButton = true
+        //videoView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {

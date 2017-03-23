@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2A538B1E833A7600F54708 /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A538A1E833A7600F54708 /* UIViewController+ext.swift */; };
 		4C7407191E81B957001646F0 /* PanoramaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7407181E81B957001646F0 /* PanoramaViewController.swift */; };
 		4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74071A1E827760001646F0 /* VideoViewController.swift */; };
 		4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		04D4750D46A9E5585F5B757E /* Pods-VR Demos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VR Demos.release.xcconfig"; path = "Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos.release.xcconfig"; sourceTree = "<group>"; };
+		4C2A538A1E833A7600F54708 /* UIViewController+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		4C7407181E81B957001646F0 /* PanoramaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaViewController.swift; sourceTree = "<group>"; };
 		4C74071A1E827760001646F0 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4CD8851B1E7FC2B600A3E4A3 /* VR Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VR Demos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 			children = (
 				4C7407181E81B957001646F0 /* PanoramaViewController.swift */,
 				4C74071A1E827760001646F0 /* VideoViewController.swift */,
+				4C2A538A1E833A7600F54708 /* UIViewController+ext.swift */,
 				4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */,
 				4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */,
 				4CD885201E7FC2B600A3E4A3 /* ViewController.swift */,
@@ -221,6 +224,7 @@
 			files = (
 				4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */,
 				4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */,
+				4C2A538B1E833A7600F54708 /* UIViewController+ext.swift in Sources */,
 				4C7407191E81B957001646F0 /* PanoramaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

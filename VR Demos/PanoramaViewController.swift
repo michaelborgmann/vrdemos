@@ -12,6 +12,8 @@ class PanoramaViewController: UIViewController {
 
     let panoramaView = GVRPanoramaView()
     
+    var photos = ["andes.jpg", "coral.jpg"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,11 +23,10 @@ class PanoramaViewController: UIViewController {
         panoramaView.frame = CGRect(x: margin, y: margin * 4, width: width, height: width / 2)
         view.addSubview(panoramaView)
         
-        panoramaView.load(UIImage(named: "andes.jpg"), of: GVRPanoramaImageType.stereoOverUnder)
+        panoramaView.load(UIImage(named: photos.first!), of: GVRPanoramaImageType.stereoOverUnder)
         panoramaView.enableFullscreenButton = true
         panoramaView.enableCardboardButton = true
-        
-        //view.addSubview(panoramaView)
+        panoramaView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,4 +45,34 @@ class PanoramaViewController: UIViewController {
     }
     */
 
+}
+
+extension PanoramaViewController: GVRWidgetViewDelegate {
+
+    public func widgetView(_ widgetView: GVRWidgetView!, didLoadContent content: Any!) {
+        if content is UIImage {
+            panoramaView.enableTouchTracking = false
+        }
+    }
+    
+    public func widgetView(_ widgetView: GVRWidgetView!, didFailToLoadContent content: Any!, withErrorMessage errorMessage: String!) {
+        print("Failed to load content: \(errorMessage)")
+    }
+    
+    public func widgetView(_ widgetView: GVRWidgetView!, didChange displayMode: GVRWidgetDisplayMode) {
+        if displayMode == GVRWidgetDisplayMode.fullscreen {
+            panoramaView.enableTouchTracking = true
+            view.isHidden = true
+            tabBarController?.tabBar.isHidden = true
+        } else {
+            panoramaView.enableTouchTracking = false
+            view.isHidden = false
+            tabBarController?.tabBar.isHidden = false
+        }
+    }
+    
+    public func widgetViewDidTap(_ widgetView: GVRWidgetView!) {
+        photos.append(photos.removeFirst())
+        panoramaView.load(UIImage(named: photos.first!), of: GVRPanoramaImageType.stereoOverUnder)
+    }
 }
