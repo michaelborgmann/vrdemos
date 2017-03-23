@@ -11,7 +11,7 @@ import UIKit
 class VideoViewController: UIViewController {
 
     @IBOutlet weak var videoView: GVRVideoView!
-    @IBOutlet weak var label: UILabel!
+    var isPlaying = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class VideoViewController: UIViewController {
         videoView.load(from: url, of: GVRVideoType.stereoOverUnder)
         videoView.enableFullscreenButton = true
         videoView.enableCardboardButton = true
-        //videoView.delegate = self
+        videoView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,4 +46,47 @@ class VideoViewController: UIViewController {
     }
     */
 
+}
+
+extension VideoViewController: GVRWidgetViewDelegate {
+    func widgetView(_ widgetView: GVRWidgetView!, didLoadContent content: Any!) {
+        if content is URL {
+            videoView.pause()
+        }
+    }
+    
+    func widgetView(_ widgetView: GVRWidgetView!, didFailToLoadContent content: Any!, withErrorMessage errorMessage: String!) {
+        print("Failed to load content: \(errorMessage)")
+    }
+    
+    
+    func widgetView(_ widgetView: GVRWidgetView!, didChange displayMode: GVRWidgetDisplayMode) {
+        if displayMode == GVRWidgetDisplayMode.embedded {
+            videoView.pause()
+            isPlaying = false
+        } else {
+            videoView.play()
+            isPlaying = true
+        }
+    }
+    
+    func widgetViewDidTap(_ widgetView: GVRWidgetView!) {
+        if videoView.displayMode != .embedded {
+            if isPlaying {
+                videoView.pause()
+            } else {
+                videoView.play()
+            }
+            isPlaying = !isPlaying
+        }
+    }
+}
+
+extension VideoViewController: GVRVideoViewDelegate {
+    func videoView(_ videoView: GVRVideoView!, didUpdatePosition position: TimeInterval) {
+        if position >= videoView.duration() {
+            videoView.seek(to: 0)
+            videoView.play()
+        }
+    }
 }
