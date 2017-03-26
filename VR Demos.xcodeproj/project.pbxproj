@@ -55,6 +55,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0E7E3F1E87E42200D9566D /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				4C2A53941E85BC2900F54708 /* Vertex.vsh */,
+				4C2A53961E85D5C300F54708 /* Fragment.fsh */,
+				4C2A53981E85D64600F54708 /* GridFragment.fsh */,
+			);
+			name = Shader;
+			sourceTree = "<group>";
+		};
 		4CD885121E7FC2B600A3E4A3 = {
 			isa = PBXGroup;
 			children = (
@@ -83,13 +93,11 @@
 				4C2A53901E844B1800F54708 /* Renderer.swift */,
 				4C2A53921E8461D000F54708 /* RenderLoop.swift */,
 				4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */,
+				4C0E7E3F1E87E42200D9566D /* Shader */,
 				4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */,
 				4CD885221E7FC2B600A3E4A3 /* Main.storyboard */,
 				4CD885271E7FC2B600A3E4A3 /* LaunchScreen.storyboard */,
 				4CD8852A1E7FC2B600A3E4A3 /* Info.plist */,
-				4C2A53941E85BC2900F54708 /* Vertex.vsh */,
-				4C2A53961E85D5C300F54708 /* Fragment.fsh */,
-				4C2A53981E85D64600F54708 /* GridFragment.fsh */,
 			);
 			path = "VR Demos";
 			sourceTree = "<group>";

@@ -8,27 +8,14 @@
 
 import UIKit
 import OpenGLES
-/*
- #import <GLKit/GLKit.h>
- #import <OpenGLES/EAGL.h>
- #import <OpenGLES/ES2/gl.h>
- #import <OpenGLES/ES2/glext.h>
- #import <QuartzCore/QuartzCore.h>
-*/
 
 @objc protocol RendererDelegate {
     @objc optional func shouldPauseRenderLoop(pause: Bool)
 }
 
-//NOTE: GVRCardboardViewDelegate added to header because of removing extension
 class Renderer: NSObject, GVRCardboardViewDelegate {
 
     var delegate: RendererDelegate?
-    
-//}
-
-// NOTE: extension remove
-//extension Renderer: GVRCardboardViewDelegate {
     
     // MARK: GL variables for the cube
     let cube = Cube()
@@ -119,7 +106,7 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeVertexBuffer)
         glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * cubeVertices.count,         // NOTE: here could hide a bug
+                     MemoryLayout<GLfloat>.stride * cubeVertices.count,
                      cubeVertices,
                      GLenum(GL_STATIC_DRAW))
     
@@ -295,7 +282,7 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         }
 
         glVertexAttribPointer(GLuint(cubeColorAttribute), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
-                                GLsizei(MemoryLayout<Float>.stride * 4),    // NOTE: a bug may hide
+                                GLsizei(MemoryLayout<Float>.stride * 4),
                                 UnsafeRawPointer(bitPattern: 0))
         glEnableVertexAttribArray(GLuint(cubeColorAttribute))
         
