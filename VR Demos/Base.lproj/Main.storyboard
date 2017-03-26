@@ -41,17 +41,20 @@
         <!--Cardboard-->
         <scene sceneID="fdl-gi-flG">
             <objects>
-                <viewController id="RM1-zm-jfN" sceneMemberID="viewController">
+                <viewController id="RM1-zm-jfN" customClass="CardboardViewController" customModule="VR_Demos" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ig0-8x-qwa"/>
                         <viewControllerLayoutGuide type="bottom" id="NTV-6M-R1m"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bUO-aZ-wgD">
+                    <view key="view" contentMode="scaleToFill" id="bUO-aZ-wgD" customClass="GVRCardboardView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91794043717372475" green="1" blue="0.70868049951676826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Cardboard" image="cardboard" id="zNF-5v-lGC"/>
+                    <connections>
+                        <outlet property="cardboardView" destination="bUO-aZ-wgD" id="9Mg-m8-oFp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uno-Y1-vCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

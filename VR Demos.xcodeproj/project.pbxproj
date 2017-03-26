@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2A538D1E843DEA00F54708 /* CardboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A538C1E843DEA00F54708 /* CardboardViewController.swift */; };
+		4C2A53911E844B1800F54708 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A53901E844B1800F54708 /* Renderer.swift */; };
+		4C2A53931E8461D000F54708 /* RenderLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A53921E8461D000F54708 /* RenderLoop.swift */; };
+		4C2A53951E85BC2900F54708 /* Vertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A53941E85BC2900F54708 /* Vertex.vsh */; };
+		4C2A53971E85D5C300F54708 /* Fragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A53961E85D5C300F54708 /* Fragment.fsh */; };
+		4C2A53991E85D64600F54708 /* GridFragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A53981E85D64600F54708 /* GridFragment.fsh */; };
 		4C7407191E81B957001646F0 /* PanoramaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7407181E81B957001646F0 /* PanoramaViewController.swift */; };
 		4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74071A1E827760001646F0 /* VideoViewController.swift */; };
 		4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */; };
@@ -18,11 +24,16 @@
 
 /* Begin PBXFileReference section */
 		04D4750D46A9E5585F5B757E /* Pods-VR Demos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VR Demos.release.xcconfig"; path = "Pods/Target Support Files/Pods-VR Demos/Pods-VR Demos.release.xcconfig"; sourceTree = "<group>"; };
+		4C2A538C1E843DEA00F54708 /* CardboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardboardViewController.swift; sourceTree = "<group>"; };
+		4C2A53901E844B1800F54708 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		4C2A53921E8461D000F54708 /* RenderLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderLoop.swift; sourceTree = "<group>"; };
+		4C2A53941E85BC2900F54708 /* Vertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Vertex.vsh; sourceTree = "<group>"; };
+		4C2A53961E85D5C300F54708 /* Fragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Fragment.fsh; sourceTree = "<group>"; };
+		4C2A53981E85D64600F54708 /* GridFragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GridFragment.fsh; sourceTree = "<group>"; };
 		4C7407181E81B957001646F0 /* PanoramaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaViewController.swift; sourceTree = "<group>"; };
 		4C74071A1E827760001646F0 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4CD8851B1E7FC2B600A3E4A3 /* VR Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VR Demos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4CD885201E7FC2B600A3E4A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4CD885231E7FC2B600A3E4A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CD885281E7FC2B600A3E4A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -65,15 +76,20 @@
 		4CD8851D1E7FC2B600A3E4A3 /* VR Demos */ = {
 			isa = PBXGroup;
 			children = (
+				4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */,
+				4C2A538C1E843DEA00F54708 /* CardboardViewController.swift */,
 				4C7407181E81B957001646F0 /* PanoramaViewController.swift */,
 				4C74071A1E827760001646F0 /* VideoViewController.swift */,
+				4C2A53901E844B1800F54708 /* Renderer.swift */,
+				4C2A53921E8461D000F54708 /* RenderLoop.swift */,
 				4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */,
-				4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */,
-				4CD885201E7FC2B600A3E4A3 /* ViewController.swift */,
-				4CD885221E7FC2B600A3E4A3 /* Main.storyboard */,
 				4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */,
+				4CD885221E7FC2B600A3E4A3 /* Main.storyboard */,
 				4CD885271E7FC2B600A3E4A3 /* LaunchScreen.storyboard */,
 				4CD8852A1E7FC2B600A3E4A3 /* Info.plist */,
+				4C2A53941E85BC2900F54708 /* Vertex.vsh */,
+				4C2A53961E85D5C300F54708 /* Fragment.fsh */,
+				4C2A53981E85D64600F54708 /* GridFragment.fsh */,
 			);
 			path = "VR Demos";
 			sourceTree = "<group>";
@@ -160,7 +176,10 @@
 			files = (
 				4CD885291E7FC2B600A3E4A3 /* LaunchScreen.storyboard in Resources */,
 				4CD885261E7FC2B600A3E4A3 /* Assets.xcassets in Resources */,
+				4C2A53971E85D5C300F54708 /* Fragment.fsh in Resources */,
+				4C2A53991E85D64600F54708 /* GridFragment.fsh in Resources */,
 				4CD885241E7FC2B600A3E4A3 /* Main.storyboard in Resources */,
+				4C2A53951E85BC2900F54708 /* Vertex.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +239,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */,
+				4C2A53931E8461D000F54708 /* RenderLoop.swift in Sources */,
+				4C2A538D1E843DEA00F54708 /* CardboardViewController.swift in Sources */,
 				4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */,
+				4C2A53911E844B1800F54708 /* Renderer.swift in Sources */,
 				4C7407191E81B957001646F0 /* PanoramaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

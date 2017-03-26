@@ -10,6 +10,7 @@
 #define VR_Demos_Bridging_Header_h
 
 // Google Cardboard VR SDK
+#import "GVRCardboardView.h"
 #import "GVRPanoramaView.h"
 #import "GVRWidgetView.h"
 #import "GVRVideoView.h"
