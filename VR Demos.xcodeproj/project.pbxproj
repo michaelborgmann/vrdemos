@@ -15,6 +15,9 @@
 		4C2A53991E85D64600F54708 /* GridFragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A53981E85D64600F54708 /* GridFragment.fsh */; };
 		4C7407191E81B957001646F0 /* PanoramaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7407181E81B957001646F0 /* PanoramaViewController.swift */; };
 		4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74071A1E827760001646F0 /* VideoViewController.swift */; };
+		4C751B2C1E9114CF00477B11 /* cube.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C751B2B1E9114CF00477B11 /* cube.json */; };
+		4C751B2E1E9114DB00477B11 /* grid.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C751B2D1E9114DB00477B11 /* grid.json */; };
+		4CA05D761E91714800716FD9 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA05D751E91714800716FD9 /* Mesh.swift */; };
 		4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */; };
 		4CD885241E7FC2B600A3E4A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD885221E7FC2B600A3E4A3 /* Main.storyboard */; };
 		4CD885261E7FC2B600A3E4A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */; };
@@ -32,6 +35,9 @@
 		4C2A53981E85D64600F54708 /* GridFragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GridFragment.fsh; sourceTree = "<group>"; };
 		4C7407181E81B957001646F0 /* PanoramaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaViewController.swift; sourceTree = "<group>"; };
 		4C74071A1E827760001646F0 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		4C751B2B1E9114CF00477B11 /* cube.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cube.json; sourceTree = "<group>"; };
+		4C751B2D1E9114DB00477B11 /* grid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = grid.json; path = ../grid.json; sourceTree = "<group>"; };
+		4CA05D751E91714800716FD9 /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
 		4CD8851B1E7FC2B600A3E4A3 /* VR Demos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VR Demos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD8851E1E7FC2B600A3E4A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD885231E7FC2B600A3E4A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,6 +71,15 @@
 			name = Shader;
 			sourceTree = "<group>";
 		};
+		4C751B2F1E9114F500477B11 /* 3D Objects */ = {
+			isa = PBXGroup;
+			children = (
+				4C751B2D1E9114DB00477B11 /* grid.json */,
+				4C751B2B1E9114CF00477B11 /* cube.json */,
+			);
+			name = "3D Objects";
+			sourceTree = "<group>";
+		};
 		4CD885121E7FC2B600A3E4A3 = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +107,9 @@
 				4C74071A1E827760001646F0 /* VideoViewController.swift */,
 				4C2A53901E844B1800F54708 /* Renderer.swift */,
 				4C2A53921E8461D000F54708 /* RenderLoop.swift */,
+				4CA05D751E91714800716FD9 /* Mesh.swift */,
 				4CD885511E8041E000A3E4A3 /* VR Demos-Bridging-Header.h */,
+				4C751B2F1E9114F500477B11 /* 3D Objects */,
 				4C0E7E3F1E87E42200D9566D /* Shader */,
 				4CD885251E7FC2B600A3E4A3 /* Assets.xcassets */,
 				4CD885221E7FC2B600A3E4A3 /* Main.storyboard */,
@@ -187,7 +204,9 @@
 				4C2A53971E85D5C300F54708 /* Fragment.fsh in Resources */,
 				4C2A53991E85D64600F54708 /* GridFragment.fsh in Resources */,
 				4CD885241E7FC2B600A3E4A3 /* Main.storyboard in Resources */,
+				4C751B2C1E9114CF00477B11 /* cube.json in Resources */,
 				4C2A53951E85BC2900F54708 /* Vertex.vsh in Resources */,
+				4C751B2E1E9114DB00477B11 /* grid.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD8851F1E7FC2B600A3E4A3 /* AppDelegate.swift in Sources */,
+				4CA05D761E91714800716FD9 /* Mesh.swift in Sources */,
 				4C2A53931E8461D000F54708 /* RenderLoop.swift in Sources */,
 				4C2A538D1E843DEA00F54708 /* CardboardViewController.swift in Sources */,
 				4C74071B1E827760001646F0 /* VideoViewController.swift in Sources */,

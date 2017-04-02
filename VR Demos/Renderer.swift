@@ -14,40 +14,11 @@ import OpenGLES
 }
 
 class Renderer: NSObject, GVRCardboardViewDelegate {
-
+    
     var delegate: RendererDelegate?
     
-    // MARK: GL variables for the cube
-    let cube = Cube()
-    
-    var cubeVertices = [GLfloat]()
-    var cubeColors = [GLfloat]()
-    var cubeFoundColors = [GLfloat]()
-    var cubePosition = [GLfloat]()
-    
-    var cubeProgram: GLuint = 0
-    var cubeVertexAttribute: GLint = 0
-    var cubeColorAttribute: GLint = 0
-    var cubeMvpMatrix: GLint = 0
-    var cubePositionUniform: GLint = 0
-    var cubeVertexBuffer: GLuint = 0
-    var cubeColorBuffer: GLuint = 0
-    var cubeFoundColorBuffer: GLuint = 0
-    
-    // MARK: GL variables for the grid
-    let grid = Grid()
-    
-    var gridPosition = [GLfloat]()
-    var gridVertices = [GLfloat]()
-    var gridColors = [GLfloat]()
-    
-    var gridProgram: GLuint = 0
-    var gridVertexAttribute: GLint = 0
-    var gridColorAttribute: GLint = 0
-    var gridMvpMatrix: GLint = 0
-    var gridPositionUniform: GLint = 0
-    var gridVertexBuffer: GLuint = 0
-    var gridColorBuffer: GLuint = 0
+    var cube = Mesh(fileNamed: "cube")
+    var grid = Mesh(fileNamed: "grid")
     
     var isCubeFocues = false
 
@@ -72,122 +43,9 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         let gridFragmentShader = CompileShader(type: GLenum(GL_FRAGMENT_SHADER), shaderFile: gridFragmentShaderFile)
         assert(gridFragmentShader != 0, "Failed to load grid fragment shader")
         
-        /////////// CUBE
-        
-        // 2. Create the program object for the cube
-        cubeProgram = glCreateProgram()
-        assert(cubeProgram != 0, "Failed to create program")
-        glAttachShader(cubeProgram, vertexShader)
-        glAttachShader(cubeProgram, fragmentShader)
-        
-        // 3. Link the shader program
-        glLinkProgram(cubeProgram)
-        assert(isProgramLinked(cubeProgram), "Failed to link cubeProgram")
-        
-        // 4. Get the location of our attribute so we can bind data to them later
-        cubeVertexAttribute = glGetAttribLocation(cubeProgram, "aVertex")
-        assert(cubeVertexAttribute != -1, "glGetAttribLocation failed for aVertex")
-        
-        cubeColorAttribute = glGetAttribLocation(cubeProgram, "aColor")
-        assert(cubeColorAttribute != -1, "glGetAttribLocation failed for aColor")
-        
-        // 5. After linking, fetch reference to the uniforms in our shader
-        cubeMvpMatrix = glGetUniformLocation(cubeProgram, "uMVP")
-        cubePositionUniform = glGetUniformLocation(cubeProgram, "uPosition")
-        assert(cubeMvpMatrix != -1 && cubePositionUniform != -1, "Error fetching uniform values for shader")
-        
-        // 6. Initialize the vertex data for the cube mesh
-        for i in 0..<cube.vertices.count {
-            cubeVertices.append(GLfloat(cube.vertices[i] * cube.size))
-        }
-        
-        glGenBuffers(1, &cubeVertexBuffer)
-        assert(cubeVertexBuffer != 0, "glGenBuffers failed for vertex buffer")
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeVertexBuffer)
-        glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * cubeVertices.count,
-                     cubeVertices,
-                     GLenum(GL_STATIC_DRAW))
-    
-        // 7. Initialize the color data for the cube mesh
-        for i in  0..<cube.colors.count {
-            cubeColors.append(GLfloat(cube.colors[i] * cube.size))
-        }
-        
-        glGenBuffers(1, &cubeColorBuffer)
-        assert(cubeColorBuffer != 0, "glGenBuffers failed for color buffer")
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeColorBuffer)
-        glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * cubeColors.count,
-                     cubeColors, GLenum(GL_STATIC_DRAW))
-        
-        // 8. Initialize the found color data for the cube mesh
-        for i in 0..<cube.colors.count {
-            cubeFoundColors.append(GLfloat(cube.foundColors[i] * cube.size))
-        }
-
-        glGenBuffers(1, &cubeFoundColorBuffer)
-        assert(cubeFoundColorBuffer != 0, "glGenBuffers failed for color buffer")
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeFoundColorBuffer)
-        glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * cubeFoundColors.count,
-                     cubeColors, GLenum(GL_STATIC_DRAW))
-        
-        /////////// CUBE
-        
-        // 9. Create the program object for the grid
-        gridProgram = glCreateProgram()
-        assert(gridProgram != 0, "Failed to create program")
-        glAttachShader(gridProgram, vertexShader)
-        glAttachShader(gridProgram, gridFragmentShader)
-        glLinkProgram(gridProgram)
-        assert(isProgramLinked(gridProgram), "Failed to link gridProgram")
-        
-        // 10. Get the location of our attributes so we can bind data to them later
-        gridVertexAttribute = glGetAttribLocation(gridProgram, "aVertex")
-        assert(gridVertexAttribute != -1, "glGetAttribLocation failed for aVertex")
-        
-        gridColorAttribute = glGetAttribLocation(gridProgram, "aColor")
-        assert(gridColorAttribute != -1, "glGetAttribLocation failed for aColor")
-        
-        // 11. After linking, fetch references to the uniforms in our shader
-        gridMvpMatrix = glGetUniformLocation(gridProgram, "uMVP")
-        gridPositionUniform = glGetUniformLocation(gridProgram, "uPosition")
-        assert(gridMvpMatrix != -1 && gridPositionUniform != -1, "Error fetching uniform values for shader")
-        
-        // 12. Position grid below the camera)
-        gridPosition.append(0)
-        gridPosition.append(-20.0)
-        gridPosition.append(0)
-        
-        for i in 0..<grid.vertices.count {
-            gridVertices.append(GLfloat(grid.vertices[i] * grid.size))
-        }
-        
-        glGenBuffers(1, &gridVertexBuffer)
-        assert(gridVertexBuffer != 0, "glGenBuffers failed for vertex buffer")
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), gridVertexBuffer)
-        glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * gridVertices.count,
-            gridVertices,
-            GLenum(GL_STATIC_DRAW))
-        
-        // 13. Initialize the color data for the grid mesh.
-        for i in  0..<grid.colors.count {
-            gridColors.append(GLfloat(grid.colors[i] * grid.size))
-        }
-        
-        glGenBuffers(1, &gridColorBuffer)
-        assert(gridColorBuffer != 0, "glGenBuffers failed for color buffer")
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), gridColorBuffer)
-        glBufferData(GLenum(GL_ARRAY_BUFFER),
-                     MemoryLayout<GLfloat>.stride * gridColors.count,
-                     gridColors, GLenum(GL_STATIC_DRAW))
+        createMesh(&cube, vertexShader, fragmentShader)
+        createMesh(&grid, vertexShader, gridFragmentShader)
+        setGridPosition()
         
         // TODO: Initialize GVRCardboardAudio engine
         
@@ -203,7 +61,7 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         let headRotation = GLKQuaternionMakeWithMatrix4(headTransform.headPoseInStartSpace())
         // TODO: implement audio
         
-        let sourceCubePosition = GLKVector3Make(cubePosition[0], cubePosition[1], cubePosition[2])
+        let sourceCubePosition = GLKVector3Make(cube.position[0], cube.position[1], cube.position[2])
         isCubeFocues = isLookingAtObject(headRotation: headRotation, sourcePosition: sourceCubePosition)
         
         glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -226,7 +84,13 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         
         var modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, GLKMatrix4Multiply(eyeFromHeadMatrix, headFromStartMatrix))
         
-        renderWithModelViewProjectionMatrix(modelViewMatrix: &modelViewProjectionMatrix.m)
+        if isCubeFocues {
+                renderWithModelViewProjectionMatrix(mesh: cube, modelViewMatrix: &modelViewProjectionMatrix.m, colorBuffer: cube.foundColorBuffer)
+        } else {
+                renderWithModelViewProjectionMatrix(mesh: cube, modelViewMatrix: &modelViewProjectionMatrix.m, colorBuffer: cube.colorBuffer)
+        }
+        
+        renderWithModelViewProjectionMatrix(mesh: grid, modelViewMatrix: &modelViewProjectionMatrix.m)
     }
     
     func cardboardView(_ cardboardView: GVRCardboardView!, didFire event: GVRUserEvent) {
@@ -235,6 +99,24 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
     
     func cardboardView(_ cardboardView: GVRCardboardView!, shouldPauseDrawing pause: Bool) {
         
+    }
+    
+    // MARK: Helper Methods
+    
+    func createMesh(_ mesh: inout Mesh, _ vertexShader: GLuint, _ fragmentShader: GLuint) {
+        createProgram(program: &mesh.program, vertexShader: vertexShader, fragmentShader: fragmentShader)
+        getAttributeLoction(program: &mesh.program, vertexAttribute: &mesh.vertexAttribute, colorAttribute: &mesh.colorAttribute)
+        getUniforms(program: &mesh.program, mvpMatrix: &mesh.mvpMatrix, positionUniform: &mesh.positionUniform)
+        
+        createMeshData(mesh: mesh.vertices, buffer: &mesh.vertexBuffer)
+        createMeshData(mesh: mesh.colors, buffer: &mesh.colorBuffer)
+        createMeshData(mesh: mesh.foundColors, buffer: &mesh.foundColorBuffer)
+    }
+    
+    func setGridPosition() {
+        grid.position.append(0)
+        grid.position.append(-20.0)
+        grid.position.append(0)
     }
     
     func spawnCube() {
@@ -247,9 +129,9 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
         let azimuth = drand48() *  cube.azimuthRadians
         let elevation = (2.0 * drand48() * cube.elevationRadians) - cube.elevationRadians
         
-        cubePosition.append(GLfloat(-cos(elevation) * sin(azimuth) * distance))
-        cubePosition.append(GLfloat(sin(elevation) * distance))
-        cubePosition.append(GLfloat(-cos(elevation) * cos(azimuth) * distance))
+        cube.position.append(GLfloat(-cos(elevation) * sin(azimuth) * distance))
+        cube.position.append(GLfloat(sin(elevation) * distance))
+        cube.position.append(GLfloat(-cos(elevation) * cos(azimuth) * distance))
     }
     
     func isLookingAtObject(headRotation: GLKQuaternion, sourcePosition position: GLKVector3) -> Bool {
@@ -258,79 +140,45 @@ class Renderer: NSObject, GVRCardboardViewDelegate {
                Double(abs(sourceDirection.v.1)) < cube.thresholdRadians
     }
     
-    func renderWithModelViewProjectionMatrix(modelViewMatrix: inout (Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float)) {
+    func renderWithModelViewProjectionMatrix(mesh: Mesh, modelViewMatrix: inout (Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float), colorBuffer: GLuint? = nil) {
         
-        // Select our shader
-        glUseProgram(cubeProgram)
+        // 1. Select shader
+        glUseProgram(mesh.program)
         
-        // Set the uniform values that will be used by our shader
-        glUniform3fv(cubePositionUniform, 1, cubePosition)
+        // 2. Set the uniform values that will be used by the shader
+        glUniform3fv(mesh.positionUniform, 1, mesh.position)
         
-        // Set the uniform matrix values that will be used by our shader
+        // 3. Set the uniform matrix values that will be used by our shader
         withUnsafeMutablePointer(to: &modelViewMatrix) {
-            //glUniformMatrix4fv(cubeMvpMatrix, 1, GLboolean(false), UnsafePointer($0))
             $0.withMemoryRebound(to: GLfloat.self, capacity: MemoryLayout.size(ofValue: modelViewMatrix) , {
-                glUniformMatrix4fv(cubeMvpMatrix, 1, GLboolean(false), UnsafePointer<GLfloat>($0)!)
+                glUniformMatrix4fv(mesh.mvpMatrix, 1, GLboolean(false), UnsafePointer<GLfloat>($0)!)
             })
         }
         
-        // Set the cube colors
-        if isCubeFocues {
-            glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeFoundColorBuffer)
-        } else {
-            glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeColorBuffer)
-        }
-
-        glVertexAttribPointer(GLuint(cubeColorAttribute), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
-                                GLsizei(MemoryLayout<Float>.stride * 4),
-                                UnsafeRawPointer(bitPattern: 0))
-        glEnableVertexAttribArray(GLuint(cubeColorAttribute))
+        // 4. Set colors
+        let colorBuffer = colorBuffer ?? mesh.colorBuffer
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), colorBuffer)     // TODO: isCubeFocused?
         
-        // Draw our polygons
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), cubeVertexBuffer)
-        glVertexAttribPointer(GLuint(cubeVertexAttribute), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
-                              GLsizei(MemoryLayout<Float>.stride * 3),
-                              UnsafeRawPointer(bitPattern: 0))
-        glEnableVertexAttribArray(GLuint(cubeVertexAttribute))
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(cube.vertices.count / 3))
-        glDisableVertexAttribArray(GLuint(cubeVertexAttribute))
-        glDisableVertexAttribArray(GLuint(cubeColorAttribute))
-
-        // Select our shader
-        glUseProgram(gridProgram)
-        
-        // Set the uniform values that will be used by our shader
-        glUniform3fv(gridPositionUniform, 1, gridPosition)
-        
-        // Set the uniform matrix values that will be used by our shader
-        withUnsafeMutablePointer(to: &modelViewMatrix) {
-            //glUniformMatrix4fv(cubeMvpMatrix, 1, GLboolean(false), UnsafePointer($0))
-            $0.withMemoryRebound(to: GLfloat.self, capacity: MemoryLayout.size(ofValue: modelViewMatrix) , {
-                glUniformMatrix4fv(gridMvpMatrix, 1, GLboolean(false), UnsafePointer<GLfloat>($0)!)
-            })
-        }
-        
-        // Set the grid colors
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), gridColorBuffer)
-        glVertexAttribPointer(GLuint(gridColorAttribute), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
+        glVertexAttribPointer(GLuint(mesh.colorAttribute), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
                               GLsizei(MemoryLayout<Float>.stride * 4),
                               UnsafeRawPointer(bitPattern: 0))
-        glEnableVertexAttribArray(GLuint(gridColorAttribute))
-        
-        // Draw our polygons
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), gridVertexBuffer)
-        glVertexAttribPointer(GLuint(gridVertexAttribute), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
+        glEnableVertexAttribArray(GLuint(mesh.colorAttribute))
+
+        // 5. Draw polygons
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), mesh.vertexBuffer)
+        glVertexAttribPointer(GLuint(mesh.vertexAttribute), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE),
                               GLsizei(MemoryLayout<Float>.stride * 3),
                               UnsafeRawPointer(bitPattern: 0))
-        glEnableVertexAttribArray(GLuint(gridVertexAttribute))
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(grid.vertices.count / 3))
-        glDisableVertexAttribArray(GLuint(gridVertexAttribute))
-        glDisableVertexAttribArray(GLuint(gridColorAttribute))
+        glEnableVertexAttribArray(GLuint(mesh.vertexAttribute))
+        glDrawArrays(GLenum(GL_TRIANGLES), 0, GLsizei(mesh.vertices.count / 3))
+        glDisableVertexAttribArray(GLuint(mesh.vertexAttribute))
+        glDisableVertexAttribArray(GLuint(mesh.colorAttribute))
     }
+    
 }
 
-
 // MARK: OpenGL Helper
+
 extension Renderer {
     
     func CompileShader(type: GLenum, shaderFile file: String) -> GLuint {
@@ -397,238 +245,44 @@ extension Renderer {
         
         return true
     }
-}
-
-// MARK: Vertices
-
-struct Cube {
     
-    // Vertices for uniform cube mesh centered at the origin
-    let vertices = [
-        // Front face
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
-        0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
-        0.5, -0.5, 0.5,
-        0.5, 0.5, 0.5,
-    
-        // Right face
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.5,
-        0.5, 0.5, -0.5,
-        0.5, -0.5, 0.5,
-        0.5, -0.5, -0.5,
-        0.5, 0.5, -0.5,
+    func createProgram(program: inout GLuint, vertexShader: GLuint, fragmentShader: GLuint) {
+        // 1. Create program for the object
+        program = glCreateProgram()
+        assert(program != 0, "Failed to create program")
+        glAttachShader(program, vertexShader)
+        glAttachShader(program, fragmentShader)
         
-        // Back face
-        0.5, 0.5, -0.5,
-        0.5, -0.5, -0.5,
-        -0.5, 0.5, -0.5,
-        0.5, -0.5, -0.5,
-        -0.5, -0.5, -0.5,
-        -0.5, 0.5, -0.5,
-        
-        // Left face
-        -0.5, 0.5, -0.5,
-        -0.5, -0.5, -0.5,
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, -0.5,
-        -0.5, -0.5, 0.5,
-        -0.5, 0.5, 0.5,
-        
-        // Top face
-        -0.5, 0.5, -0.5,
-        -0.5, 0.5, 0.5,
-        0.5, 0.5, -0.5,
-        -0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-        0.5, 0.5, -0.5,
-        
-        // Bottom face
-        0.5, -0.5, -0.5,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, -0.5,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.5,
-        -0.5, -0.5, -0.5,
-    ]
+        // 2. Link the shader program
+        glLinkProgram(program)
+        assert(isProgramLinked(program), "Failed to link program")
+    }
     
-    // Color of the cube's six faces.
-    let colors = [
-        // front, green
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-    
-        // right, blue
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-    
-        // back, also green
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-        0.0, 0.5273, 0.2656, 1.0,
-    
-        // left, also blue
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-    
-        // top, red
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-    
-        // bottom, also red
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-        0.8359375, 0.17578125, 0.125, 1.0,
-    ]
-    
-    // Cube color when looking at it: Yellow.
-    let foundColors = [
-        // front, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
+    func getAttributeLoction(program: inout GLuint, vertexAttribute: inout GLint, colorAttribute: inout GLint) {
+        // 3. Get the location of our attribute so we can bind data to them later
+        vertexAttribute = glGetAttribLocation(program, "aVertex")
+        assert(vertexAttribute != -1, "glGetAttribLocation failed for aVertex")
         
-        // right, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        
-        // back, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        
-        // left, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        
-        // top, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        
-        // bottom, yellow
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-        1.0, 0.6523, 0.0, 1.0,
-    ]
+        colorAttribute = glGetAttribLocation(program, "aColor")
+        assert(colorAttribute != -1, "glGetAttribLocation failed for aColor")
+    }
     
-    let size = 1.0
-    let minDistance = 2.0
-    let maxDistance = 7.0
-    let azimuthRadians = 2.0 * M_PI
-    let elevationRadians = 0.25 * M_PI
-    let thresholdRadians = 0.5
-}
-
-struct Grid {
+    func getUniforms(program: inout GLuint, mvpMatrix: inout GLint, positionUniform: inout GLint) {
+        // 4. After linking, fetch reference to the uniforms in our shader
+        mvpMatrix = glGetUniformLocation(program, "uMVP")
+        positionUniform = glGetUniformLocation(program, "uPosition")
+        assert(mvpMatrix != -1 && positionUniform != -1, "Error fetching uniform values for shader")
+    }
     
-    // The grid lines on the floor are rendered procedurally and large polygons cause floating point
-    // precision problems on some architectures. So we split the floor into 4 quadrants.
-    let vertices = [
-        // +X, +Z quadrant
-        200.0, 0.0, 0.0,
-        0.0, 0.0, 0.0,
-        0.0, 0.0, 200.0,
-        200.0, 0.0, 0.0,
-        0.0, 0.0, 200.0,
-        200.0, 0.0, 200.0,
+    func createMeshData(mesh: [GLfloat], buffer: inout GLuint) {
+        glGenBuffers(1, &buffer)
+        assert(buffer != 0, "glGenBuffers failed for buffer")
         
-        // -X, +Z quadrant
-        0.0, 0.0, 0.0,
-        -200.0, 0.0, 0.0,
-        -200.0, 0.0, 200.0,
-        0.0, 0.0, 0.0,
-        -200.0, 0.0, 200.0,
-        0.0, 0.0, 200.0,
-        
-        // +X, -Z quadrant
-        200.0, 0.0, -200.0,
-        0.0, 0.0, -200.0,
-        0.0, 0.0, 0.0,
-        200.0, 0.0, -200.0,
-        0.0, 0.0, 0.0,
-        200.0, 0.0, 0.0,
-        
-        // -X, -Z quadrant
-        0.0, 0.0, -200.0,
-        -200.0, 0.0, -200.0,
-        -200.0, 0.0, 0.0,
-        0.0, 0.0, -200.0,
-        -200.0, 0.0, 0.0,
-        0.0, 0.0, 0.0,
-    ]
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), buffer)
+        glBufferData(GLenum(GL_ARRAY_BUFFER),
+                     MemoryLayout<GLfloat>.stride * mesh.count,
+                     mesh,
+                     GLenum(GL_STATIC_DRAW))
+    }
     
-    let colors = [
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-        0.0, 0.3398, 0.9023, 1.0,
-    ]
-    
-    let size = 1.0
-
 }
